@@ -108,37 +108,6 @@ const entryPoints = [
     './src/sheets/main.tsx',
     './src/sheets/worker.ts',
 
-    './src/sheets-no-worker/main.ts',
-
-    // sheets-multi
-    './src/sheets-multi/main.tsx',
-
-    // sheets-multi-units
-    './src/sheets-multi-units/main.ts',
-
-    // sheets-uniscript
-    './src/sheets-uniscript/main.ts',
-
-    // sheets-webcomponent
-    './src/sheets-webcomponent/main.tsx',
-
-    // docs
-    './src/docs/main.ts',
-
-    // docs-uniscript
-    './src/docs-uniscript/main.ts',
-
-    // slides
-    './src/slides/main.tsx',
-
-    // uni
-    './src/uni/main.ts',
-    './src/uni/worker.ts',
-    './src/uni/lazy.ts',
-
-    // mobile sheet
-    './src/mobile-s/main.ts',
-    './src/mobile-s/worker.ts',
 ];
 
 const config: SameShape<BuildOptions, BuildOptions> = {

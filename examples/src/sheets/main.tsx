@@ -56,6 +56,7 @@ import React from "react";
 import { customRegisterEvent } from "./custom/custom-register-event";
 import { UniverSheetsCustomShortcutPlugin } from "./custom/custom-shortcut";
 import ImportCSVButtonPlugin from "./custom/import-csv-button";
+import { ChatPlugin } from "./custom/chat-plugin";
 
 import "../global.css";
 import { render } from "@univerjs/design";
@@ -129,7 +130,10 @@ class MyUniverAdvanced extends LitElement {
       [UniverSheetsNotePlugin],
       [ImportCSVButtonPlugin],
       [UniverSheetsCustomShortcutPlugin],
+      [ChatPlugin],
     ]);
+
+    console.log('Plugins registered, ChatPlugin should be loaded');
 
     if (IS_E2E) {
       univer.registerPlugin(UniverDebuggerPlugin, {
@@ -170,13 +174,39 @@ class MyUniverAdvanced extends LitElement {
     (window as any).univer = univer;
     (window as any).univerAPI = FUniver.newAPI(univer);
 
+    // Add chat functionality to global scope
+    try {
+      console.log('Attempting to get ChatPlugin from injector...');
+      const chatPlugin = injector.get(ChatPlugin);
+      if (chatPlugin) {
+        console.log('ChatPlugin found!', chatPlugin);
+        (window as any).univerChat = {
+          show: () => chatPlugin.showChat(),
+          hide: () => chatPlugin.hideChat(),
+          toggle: () => chatPlugin.toggleChat(),
+          sendMessage: (msg: string) => chatPlugin.sendMessage(msg),
+          clearChat: () => chatPlugin.clearChat(),
+          getMessages: () => chatPlugin.getMessages(),
+          // MCP specific methods
+          setApiKey: (key: string) => chatPlugin.setApiKey(key),
+          hasApiKey: () => chatPlugin.hasApiKey(),
+          getSessionId: () => chatPlugin.getSessionId(),
+          clearApiKey: () => chatPlugin.clearApiKey()
+        };
+      } else {
+        console.error('ChatPlugin is null or undefined');
+      }
+    } catch (error) {
+      console.warn('ChatPlugin not available:', error);
+    }
+
     customRegisterEvent(univer, (window as any).univerAPI!);
   }
 
   override render() {
     return html`
       <link rel="stylesheet" href="./main.css" />
-      <div style="height: 100%;" id="containerId"></div>
+      <div style="height: 100%; width: 100%;" id="containerId"></div>
     `;
   }
 }
