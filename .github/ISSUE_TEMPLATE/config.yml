@@ -1,9 +1,0 @@
-blank_issues_enabled: true
-contact_links:
-    - name: 💬 Github Discussions
-      url: https://github.com/dream-num/univer/discussions
-      about: Use github issues for bug reports and feature requests. For questions please use discussions. | Github issues 仅用于错误报告和功能请求。如有疑问请使用 Github Discussions。
-
-    - name: 👾 Discord Community
-      url: https://discord.gg/z3NKNT6D2f
-      about: Ask for help in the Discord community. | 在 Discord 社区寻求帮助。
